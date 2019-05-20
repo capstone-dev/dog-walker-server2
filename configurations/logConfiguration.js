@@ -3,8 +3,8 @@ const winstoneDaily = require('winston-daily-rotate-file');
 const {createLogger, format, transports} = require('winston');
 const path = require('path');
 
-const infoLogFile = path.join(__dirname, '../log/info', '/%DATE%-logfile.log')
-const exceptionLogFilen = path.join(__dirname, '../log/exception', '/%DATE%-logfile.log')
+const infoLogFile = path.join(__dirname, '../../log/info', '/%DATE%-logfile.log')
+const exceptionLogFilen = path.join(__dirname, '../../log/exception', '/%DATE%-logfile.log')
 
 const tsFormat = format.combine(
     format.timestamp({
