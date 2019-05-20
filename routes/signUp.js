@@ -3,7 +3,7 @@
  var router = express.Router()
  
  // DATABASE SETTING 
-var connection=require('./dbConnection');
+var connection=require('../configurations/dbConnection');
 router.get('/',function(req, res, next) {
 
     var query = connection.query('select * from signup',

@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 100
+    },
+    "auditLog": "/home/ubuntu/deploy/dog-walker-server2/log/exception/.59afc45595bb99b48b7f47ca9d4b108b3c656897-audit.json",
+    "files": [
+        {
+            "date": 1558349807943,
+            "name": "/home/ubuntu/deploy/dog-walker-server2/log/exception/2019-05-20-logfile.log",
+            "hash": "a0188439206950629cab5466a779b775"
+        }
+    ]
+}
