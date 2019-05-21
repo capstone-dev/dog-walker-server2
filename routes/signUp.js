@@ -27,10 +27,11 @@ router.post('/', function(req, res){
         'UserEmail' : req.body.UserEmail,
         'UserPhoneNumber' : req.body.UserPhoneNumber,
         'UserGender' : req.body.UserGender,
-        'UserBigcity' : req.body.UserBigcity    
+        'UserBigcity' : req.body.UserBigcity,
+        'UserPassword' : req.body.UserPassword,
 };
         //execute sql
-        connection.query("INSERT INTO thread set ?", signup,
+        connection.query("INSERT INTO user set ?", signup,
         function (error, result, fields){
 
             if(error){

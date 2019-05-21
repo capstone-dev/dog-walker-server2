@@ -13,7 +13,7 @@ router.get('/',function(req, res, next) {
     if(Object.keys(req.query).length==0)
         sql='select * from user'
     else{//threadId에 해당하는 comment 가져옴
-        sql='select * from user where name="' +req.query.id+'" AND password="'+req.query.pw+'"';
+        sql='select * from user where UserName="' +req.query.id+'" AND UserPassword="'+req.query.pw+'"';
     }
     var query = connection.query(sql,
         function(err,rows){
