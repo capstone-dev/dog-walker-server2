@@ -9,7 +9,7 @@ var commentRouter=require('./routes/comment');
 var signUpRouter=require('./routes/signUp');
 var walkingService=require('./routes/walkingService');
 var loginRoutere=require('./routes/login');
-var dogwalkerRealTimeService=require('./routes/dogwalkerRealTimeService');
+var dogwalkerRealTimeServiceRouter=require('./routes/dogwalkerRealTimeService');
 
 
 var app = express();
@@ -33,12 +33,9 @@ app.use('/thread',threadRouter);
 app.use('/comment',commentRouter);
 app.use('/signUp',signUpRouter);
 app.use('/walkingService',walkingService);
-<<<<<<< HEAD
 app.use('/login',loginRoutere);
-=======
 app.use('/dogwalkerRealTimeService', dogwalkerRealTimeServiceRouter);
 
->>>>>>> origin/merging
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
