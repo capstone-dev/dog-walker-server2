@@ -6,7 +6,7 @@
 var connection=require('../configurations/dbConnection');
 router.get('/',function(req, res, next) {
 
-    var query = connection.query('select * from signup',
+    var query = connection.query('select * from signUp',
     function(err,rows){
         if(rows){
             res.send(rows)
@@ -21,7 +21,7 @@ router.get('/',function(req, res, next) {
 router.post('/', function(req, res){
 
     var body = req.body;
-    var signup = {
+    var signUp = {
         'UserID' : req.body.UserID,
         'UserName' : req.body.UserName,
         'UserEmail' : req.body.UserEmail,
@@ -31,7 +31,7 @@ router.post('/', function(req, res){
         'UserPassword' : req.body.UserPassword,
 };
         //execute sql
-        connection.query("INSERT INTO user set ?", signup,
+        connection.query("INSERT INTO user set ?", signUp,
         function (error, result, fields){
 
             if(error){
