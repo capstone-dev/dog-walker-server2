@@ -27,11 +27,7 @@ router.get('/',function(req, res, next) {
             else{
                 res.send('no rows in db');
             }
-
         })
-
-
-
 })
 
 

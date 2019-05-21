@@ -32,20 +32,26 @@ router.get('/',function(req, res, next) {
             'userLocation' : req.body.userLocation,
             'threadNumber' : req.body.threadNumber,
             'threadContent' : req.body.threadContent,
-            'chatroomUserName' : req.body.chatroomUserName
+            'chatroomUserName' : req.body.chatroomUserName,
+            'threadWalkDate': req.body.threadWalkDate
         };
         //execute sql
         connection.query("INSERT INTO thread set ?", userThread,
             function (error, result, fields){
 
+                var resultMsg={};
+
                 if(error){
                     //에러 발생시
-                    res.send('err : ' + error)
+                    resultMsg["result"]=0;
+                    res.json(resultMsg);
                     throw error;
                 }
                 else {
                     //execution success
-                    res.send('success create userThread');
+                    resultMsg["result"]=1;
+                    resultMsg["id"]=result.insertId;
+                    res.json(resultMsg);
                     logger.info(JSON.stringify(userThread)+" insertion success");
                 }
             })

@@ -6,7 +6,8 @@ const mysql = require('mysql')
      port     : 3306,
      user     : 'root',
      password : 'teaming',
-     database : 'capswdb'
+     database : 'capswdb',
+     dateStrings:true
  });
 
 connection.connect(function(err){
