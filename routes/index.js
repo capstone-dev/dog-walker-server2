@@ -1,42 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var path=require('path');
 
+//LOGGER SETTING
+const logger=require('../configurations/logConfiguration');
 
-
-/* GET home page. */
-/*
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-*/
-
-// DATABASE SETTING
-var connection=require('../configurations/dbConnection');
 router.get('/',function(req, res, next) {
-
-var query=connection.query('select * from user',
-function(err,rows){
-console.log("here1");
-//if(err)throw err;
-if(rows[0]){
-res.json(rows[0]);
-console.log("here2");
-console.log(rows[0])
-//console.log(rows[0])
-
-//responseData.result="ok";
-//responseData.name=rows[0].name;
-}else{
-console.log("no rows")
-//responseData.result="none";
-//responseData.name="";
-}
-})
+    res.sendFile(path.resolve('views/main.html'))
 });
-
-
-
-
-
 
 module.exports = router;

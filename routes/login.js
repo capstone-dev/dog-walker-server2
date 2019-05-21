@@ -20,10 +20,9 @@ router.get('/',function(req, res, next) {
         function(err,rows){
             if(err){
                 res.send('err : ' + err);
-                throw err;
             }
             if(rows[0]){
-                res.send(rows)
+                res.send(rows[0])
             }
             else{
                 res.send('Incorret Id or Password');

@@ -13,7 +13,6 @@ router.get('/',function(req, res, next) {
         function (err, rows) {
             if (err) {
                 res.send('err : ' + err);
-                throw err;
             }
             if (rows[0]) {
                 res.send(rows)
@@ -44,8 +43,8 @@ router.get('/',function(req, res, next) {
                 if(error){
                     //에러 발생시
                     resultMsg["result"]=0;
+                    resultMsg["error"]=error;
                     res.json(resultMsg);
-                    throw error;
                 }
                 else {
                     //execution success

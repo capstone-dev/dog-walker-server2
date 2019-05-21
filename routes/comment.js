@@ -19,7 +19,6 @@ router.get('/',function(req, res, next) {
         function(err,rows){
             if(err){
                 res.send('err : ' + err);
-                throw err;
             }
             if(rows[0]){
                 res.send(rows)
@@ -43,14 +42,19 @@ router.get('/',function(req, res, next) {
         //execute sql
         connection.query("INSERT INTO comment set ?", userComment,
             function (error, result, fields){
+                var resultMsg={};
+
                 if(error){
                     //에러 발생시
-                    res.send('err : ' + error);
-                    throw err;
+                    resultMsg["result"]=0;
+                    resultMsg["error"]=error;
+                    res.json(resultMsg);
                 }
                 else {
                     //execution success
-                    res.send('success create comment');
+                    resultMsg["result"]=1;
+                    resultMsg["id"]=result.insertId;
+                    res.json(resultMsg);
                     logger.info(JSON.stringify(userComment)+" insertion success");
                 }
             })
