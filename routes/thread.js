@@ -41,7 +41,7 @@ router.get('/',function(req, res, next) {
                 if(error){
                     //에러 발생시
                     res.send('err : ' + error)
-                    throw err;
+                    throw error;
                 }
                 else {
                     //execution success

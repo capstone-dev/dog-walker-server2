@@ -7,6 +7,7 @@ var usersRouter = require('./routes/users');
 var threadRouter=require('./routes/thread');
 var commentRouter=require('./routes/comment');
 var signUpRouter=require('./routes/signUp');
+var walkingService=require('./routes/walkingService');
 
 var app = express();
 var path= require('path');
@@ -28,6 +29,7 @@ app.use('/users', usersRouter);
 app.use('/thread',threadRouter);
 app.use('/comment',commentRouter);
 app.use('/signUp',signUpRouter);
+app.use('/walkingService',walkingService);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
