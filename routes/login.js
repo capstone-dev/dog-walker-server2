@@ -14,7 +14,7 @@ router.get('/',function(req, res, next) {
         sql='select * from user'
     else{//threadId에 해당하는 comment 가져옴
         // sql='select * from user where UserID="' +req.query.id+'" AND UserPassword="'+req.query.pw+'"';
-        sql='select UserID,UserPassword,UserName,UserEmail,UserGender,UserPhoneNumber,UserBigcity from user where UserID="' +req.query.id+'" AND UserPassword="'+req.query.pw+'"';
+        sql='select UserID,UserPassword,UserName,UserEmail,UserGender,UserPhoneNumber,UserBigcity from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
     }
     var query = connection.query(sql,
         function(err,rows){
