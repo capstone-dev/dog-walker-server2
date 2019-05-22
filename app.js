@@ -36,7 +36,7 @@ app.use('/signUp',signUpRouter);
 app.use('/walkingService',walkingService);
 app.use('/login',loginRoutere);
 app.use('/dogwalkerRealTimeService', dogwalkerRealTimeServiceRouter);
-app.use('/gps',gps);
+app.use('/gps',gpsRouter);
 
 
 // catch 404 and forward to error handler
