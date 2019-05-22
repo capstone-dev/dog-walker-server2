@@ -25,8 +25,8 @@ router.get('/',function(req, res, next) {
 router.post('/', function(req, res){
     var body = req.body;
     var walkingService = {
-        'userId' : req.body.userId,
-        'dogwalkerId' : req.body.dogwalkerId,
+        'user_UserID' : req.body.user_UserID,
+        'user_DogwalkerID' : req.body.user_DogwalkerID,
         'price' : req.body.price,
         'walkingTime' : req.body.walkingTime
     };
