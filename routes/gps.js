@@ -9,7 +9,7 @@ const logger=require('../configurations/logConfiguration');
 
 
 router.get('/',function(req, res, next) {
-    var query = connection.query('select * from user',
+    var query = connection.query('select * from gps',
         function (err, rows) {
             if (err) {
                 res.send('err : ' + err);
@@ -26,17 +26,25 @@ router.get('/',function(req, res, next) {
 
     router.post('/', function(req, res){
         var body = req.body;
-        var signUp = {
-            'UserID' : req.body.UserID,
-            'UserName' : req.body.UserName,
-            'UserEmail' : req.body.UserEmail,
-            'UserPhoneNumber' : req.body.UserPhoneNumber,
-            'UserGender' : req.body.UserGender,
-            'UserBigcity' : req.body.UserBigcity,
-            'UserPassword' : req.body.UserPassword
+        var gps = {
+            'gpsId' : req.body.gpsId,
+            'markerId' : req.body.markerId,
+            'photoData' : req.body.photoData,
+            'photoLatitude' : req.body.photoLatitude,
+            'photoLongitude' : req.body.photoLongitude,
+            'dogwalkerLatitude' : req.body.dogwalkerLatitude,
+            'dogwalkerLongitude': req.body.dogwalkerLongitude,
+            'startDogwalkerLatitude': req.body.startDogwalkerLatitude,
+            'startDogwalkerLongitude': req.body.startDogwalkerLongitude,
+            'endDogwalkerLatitude': req.body.endDogwalkerLatitude,
+            'endDogwalkerLongitude': req.body.endDogwalkerLongitude,
+            'walkDistance': req.body.walkDistance,
+            'start_time': req.body.start_time,
+            'end_time': req.body.end_time,
+            'walkTime': req.body.walkTime
         };
         //execute sql
-        connection.query("INSERT INTO signUp set ?", user,
+        connection.query("INSERT INTO thread set ?", gps,
             function (error, result, fields){
 
                 var resultMsg={};
