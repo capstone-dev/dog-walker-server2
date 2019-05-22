@@ -28,7 +28,9 @@ router.post('/', function(req, res){
         'user_UserID' : req.body.user_UserID,
         'user_DogwalkerID' : req.body.user_DogwalkerID,
         'price' : req.body.price,
-        'walkingTime' : req.body.walkingTime
+        'walkingTime' : req.body.walkingTime,
+        'serviceLocation' : req.body.serviceLocation,
+        'peopleNumber' : req.body.peopleNumber
     };
     //execute sql
     connection.query("INSERT INTO walking_service set ?", walkingService,
