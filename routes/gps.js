@@ -12,7 +12,7 @@ const logger=require('../configurations/logConfiguration');
 //파일 저장위치와 파일이름 설정
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '../uploads/images')
+        cb(null, '/home/ubuntu/deploy/uploads/images')
     },
 //파일이름 설정
     filename: function (req, file, cb) {
@@ -67,6 +67,7 @@ router.get('/',function(req, res, next) {
                     //에러 발생시
                     resultMsg["result"]=0;
                     res.json(resultMsg);
+			logger.error(error);
                 }
                 else {
                     //execution success
