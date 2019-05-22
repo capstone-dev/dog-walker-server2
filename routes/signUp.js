@@ -9,7 +9,7 @@ const logger=require('../configurations/logConfiguration');
 
 
 router.get('/',function(req, res, next) {
-    var query = connection.query('select * from signUp',
+    var query = connection.query('select * from user',
         function (err, rows) {
             if (err) {
                 res.send('err : ' + err);
@@ -36,7 +36,7 @@ router.get('/',function(req, res, next) {
             'UserPassword' : req.body.UserPassword
         };
         //execute sql
-        connection.query("INSERT INTO signUp set ?", signUp,
+        connection.query("INSERT INTO signUp set ?", user,
             function (error, result, fields){
 
                 var resultMsg={};
