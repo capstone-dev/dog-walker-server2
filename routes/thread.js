@@ -26,13 +26,13 @@ router.get('/',function(req, res, next) {
     router.post('/', function(req, res){
         var body = req.body;
         var userThread = {
-            'userId' : req.body.userId,
             'threadTitle' : req.body.threadTitle,
             'userLocation' : req.body.userLocation,
             'threadNumber' : req.body.threadNumber,
             'threadContent' : req.body.threadContent,
             'chatroomUserName' : req.body.chatroomUserName,
-            'threadWalkDate': req.body.threadWalkDate
+            'threadWalkDate': req.body.threadWalkDate,
+            'user_UserID' : req.body.user_UserID
         };
         //execute sql
         connection.query("INSERT INTO thread set ?", userThread,

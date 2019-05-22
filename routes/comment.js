@@ -35,9 +35,9 @@ router.get('/',function(req, res, next) {
 
         var body = req.body;
         var userComment = {
-            'userId' : req.body.userId,
             'commentContent' : req.body.commentContent,
             'threadId' : req.body.threadId,
+            'user_UserID' : req.body.user_UserID
         };
         //execute sql
         connection.query("INSERT INTO comment set ?", userComment,
