@@ -44,7 +44,7 @@ router.get('/',function(req, res, next) {
             'walkTime': req.body.walkTime
         };
         //execute sql
-        connection.query("INSERT INTO thread set ?", gps,
+        connection.query("INSERT INTO gps set ?", gps,
             function (error, result, fields){
 
                 var resultMsg={};
@@ -60,7 +60,7 @@ router.get('/',function(req, res, next) {
                     resultMsg["result"]=1;
                     resultMsg["id"]=result.insertId;
                     res.json(resultMsg);
-                    logger.info(JSON.stringify(userThread)+" insertion success");
+                    logger.info(JSON.stringify(gps)+" insertion success");
                 }
             })
     })
