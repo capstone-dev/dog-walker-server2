@@ -53,7 +53,8 @@ router.get('/',function(req, res, next) {
                     //execution success
                     resultMsg["result"]=1;
                     resultMsg["id"]=result.insertId;
-                    res.json(resultMsg);
+                    // res.json(resultMsg);
+
                     logger.info(JSON.stringify(signUp)+" insertion success");
                 }
             })
