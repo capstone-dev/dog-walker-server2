@@ -41,13 +41,15 @@ router.post('/', function(req, res){
                 //에러 발생시
                 resultMsg["result"]=0;
                 resultMsg["error"]=error;
-                res.json(resultMsg);
+                // res.json(resultMsg);
+                res.send('err : ' + error)
             }
             else {
                 //execution success
                resultMsg["result"]=1;
                resultMsg["id"]=result.insertId;
-                res.json(resultMsg);
+                // res.json(resultMsg);
+                res.send('success create walkingService');
                 logger.info(JSON.stringify(walkingService)+" insertion success");
             }
         })

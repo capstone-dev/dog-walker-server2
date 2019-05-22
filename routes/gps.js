@@ -1,5 +1,7 @@
 var express = require('express')
 var router = express.Router()
+var fs = require('fs')
+var multer = require('multer')
 
 // DATABASE SETTING
 var connection=require('../configurations/dbConnection');
@@ -7,13 +9,24 @@ var connection=require('../configurations/dbConnection');
 //LOGGER SETTING
 const logger=require('../configurations/logConfiguration');
 
+//파일 저장위치와 파일이름 설정
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../uploads/images')
+    },
+//파일이름 설정
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + "-" + file.originalname)
+    }
+})
+//파일 업로드 모듈
+var upload = multer({storage: storage})
 
 router.get('/',function(req, res, next) {
     var query = connection.query('select * from gps',
         function (err, rows) {
             if (err) {
                 res.send('err : ' + err);
-                throw err;
             }
             if(rows[0]){
                 res.send(rows[0])
@@ -24,12 +37,13 @@ router.get('/',function(req, res, next) {
 
 })
 
-    router.post('/', function(req, res){
+    router.post('/', upload.single('fileUpload'),function(req, res){
+
         var body = req.body;
         var gps = {
             'gpsId' : req.body.gpsId,
             'markerId' : req.body.markerId,
-            'photoData' : req.body.photoData,
+            'photoData' : req.file.path,
             'photoLatitude' : req.body.photoLatitude,
             'photoLongitude' : req.body.photoLongitude,
             'dogwalkerLatitude' : req.body.dogwalkerLatitude,
@@ -53,7 +67,6 @@ router.get('/',function(req, res, next) {
                     //에러 발생시
                     resultMsg["result"]=0;
                     res.json(resultMsg);
-                    throw error;
                 }
                 else {
                     //execution success
