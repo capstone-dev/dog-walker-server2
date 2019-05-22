@@ -9,7 +9,7 @@ const logger=require('../configurations/logConfiguration');
 
 
 router.get('/',function(req, res, next) {
-    var query = connection.query('select * from dogwalkerRealTimeService',
+    var query = connection.query('select * from gps',
         function (err, rows) {
             if (err) {
                 res.send('err : ' + err);
@@ -26,7 +26,7 @@ router.get('/',function(req, res, next) {
 
     router.post('/', function(req, res){
         var body = req.body;
-        var dogwalkerRealTimeService = {
+        var gps = {
             'gpsId' : req.body.gpsId,
             'markerId' : req.body.markerId,
             'photoData' : req.body.photoData,
@@ -44,7 +44,7 @@ router.get('/',function(req, res, next) {
             'walkTime': req.body.walkTime
         };
         //execute sql
-        connection.query("INSERT INTO thread set ?", dogwalkerRealTimeService,
+        connection.query("INSERT INTO thread set ?", gps,
             function (error, result, fields){
 
                 var resultMsg={};
