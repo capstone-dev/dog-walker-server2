@@ -34,8 +34,35 @@ router.get('/',function(req, res, next) {
                 res.send('no rows in db');
             }
         })
-
 })
+
+router.get('/image',function(req, res, next) {
+    connection.query("select * from gps where id=" + req.query.id, function (err, rows) {
+        if (err)
+            res.send('err : ' + err);
+        if (rows[0]) {
+            logger.info(rows[0]);
+            var fileName = rows[0].photoData;
+            var fileNameExtension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length);
+            fs.readFile(fileName,              //파일 읽기
+                function (err, data)
+                {
+                    if(err)
+                        res.send('err : ' + err);
+                    
+                    //http의 헤더정보를 클라이언트쪽으로 출력
+                    //write 로 보낼 내용을 입력
+                    res.writeHead(200, { "Context-Type": "image/"+fileNameExtension });//보낼 헤더를 만듬
+                    res.write(data);   //본문을 만들고
+                    res.end();  //클라이언트에게 응답을 전송한다
+                }
+            );
+            // res.download(fileName);
+        } else
+            res.send("no rows in db");
+    });
+})
+
 
     router.post('/', upload.single('fileUpload'),function(req, res){
 
