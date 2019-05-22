@@ -15,8 +15,8 @@ router.get('/',function(req, res, next) {
                 res.send('err : ' + err);
                 throw err;
             }
-            if (rows[0]) {
-                res.send(rows)
+            if(rows[0]){
+                res.send(rows[0])
             } else {
                 res.send('no rows in db');
             }
