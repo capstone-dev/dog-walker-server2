@@ -49,7 +49,7 @@ router.get('/image',function(req, res, next) {
                 {
                     if(err)
                         res.send('err : ' + err);
-                    
+
                     //http의 헤더정보를 클라이언트쪽으로 출력
                     //write 로 보낼 내용을 입력
                     res.writeHead(200, { "Context-Type": "image/"+fileNameExtension });//보낼 헤더를 만듬
