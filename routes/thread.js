@@ -32,8 +32,7 @@ router.get('/',function(req, res, next) {
             'threadContent' : req.body.threadContent,
             'chatroomUserName' : req.body.chatroomUserName,
             'threadWalkDate': req.body.threadWalkDate,
-            // 'user_UserID' : req.body.user_UserID,
-            'user_UserID' : 'hello6'
+            'user_UserID' : req.body.user_UserID
         };
         //execute sql
         connection.query("INSERT INTO thread set ?", userThread,
