@@ -43,6 +43,9 @@ router.get('/',function(req, res, next) {
             'DogwalkerID' : req.body.DogwalkerID,
             'DogwalkerBigcity' : req.body.DogwalkerBigcity,
             'DogwalkerSmallcity' : req.body.DogwalkerSmallcity,
+	    'select' :  req.body.select = 0,
+	    'DogWalkerGender' :  req.body.DogwalkerGender
+
         };
         //execute sql
         connection.query("INSERT INTO dogwalkerRealTimeService set ?", dogwalkerRealTimeService,
