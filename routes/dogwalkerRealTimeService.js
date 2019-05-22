@@ -43,7 +43,7 @@ router.get('/',function(req, res, next) {
             'DogwalkerID' : req.body.DogwalkerID,
             'DogwalkerBigcity' : req.body.DogwalkerBigcity,
             'DogwalkerSmallcity' : req.body.DogwalkerSmallcity,
-	    'selected' :  req.body.selected = 0,
+	    'selected' :  req.body.selected,
 	    'DogWalkerGender' :  req.body.DogwalkerGender
 
         };
