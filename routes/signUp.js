@@ -33,10 +33,12 @@ router.get('/',function(req, res, next) {
             'UserPhoneNumber' : req.body.UserPhoneNumber,
             'UserGender' : req.body.UserGender,
             'UserBigcity' : req.body.UserBigcity,
-            'UserPassword' : req.body.UserPassword
+            'UserPassword' : req.body.UserPassword,
+            'dog_name':req.body.dog_name,
+            'dog_species':req.body.dog_species
         };
         //execute sql
-        connection.query("INSERT INTO signUp set ?", user,
+        connection.query("INSERT INTO user set ?", signUp,
             function (error, result, fields){
 
                 var resultMsg={};
@@ -52,7 +54,7 @@ router.get('/',function(req, res, next) {
                     resultMsg["result"]=1;
                     resultMsg["id"]=result.insertId;
                     res.json(resultMsg);
-                    logger.info(JSON.stringify(userThread)+" insertion success");
+                    logger.info(JSON.stringify(signUp)+" insertion success");
                 }
             })
     })
