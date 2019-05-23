@@ -8,19 +8,9 @@ var connection = require('../configurations/dbConnection');
 
 //LOGGER SETTING
 const logger = require('../configurations/logConfiguration');
+//FILEUPLOAD SETTING
+const fileUpload=require('../configurations/fileUploadConfiguration');
 
-//파일 저장위치와 파일이름 설정
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, '/home/ubuntu/deploy/uploads/images')
-    },
-//파일이름 설정
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + "-" + file.originalname)
-    }
-})
-//파일 업로드 모듈
-var upload = multer({storage: storage})
 
 router.get('/', function (req, res, next) {
     var query = connection.query('select * from gps',
@@ -64,7 +54,7 @@ router.get('/image', function (req, res, next) {
 })
 
 
-router.post('/', upload.single('fileUpload'), function (req, res) {
+router.post('/', fileUpload.single('fileUpload'), function (req, res) {
 
     var body = req.body;
     var gps = {

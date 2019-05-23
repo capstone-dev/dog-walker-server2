@@ -1,29 +1,12 @@
 var express = require('express')
 var router = express.Router()
-var fs = require('fs')
-var multer = require('multer')
 
 // DATABASE SETTING
 var connection=require('../configurations/dbConnection');
 //LOGGER SETTING
 const logger=require('../configurations/logConfiguration');
-
-//파일 저장위치와 파일이름 설정
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        //aws 서버용
-        cb(null, '/home/ubuntu/deploy/uploads/images')
-        // 로컬 테스트용
-        // cb(null, 'C:\\Users\\kyeongjun\\캡스톤 프로젝트\\uploads\\images')
-    },
-//파일이름 설정
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + "-" + file.originalname)
-    }
-})
-//파일 업로드 모듈
-var upload = multer({storage: storage})
-
+//FILEUPLOAD SETTING
+const fileUpload=require('../configurations/fileUploadConfiguration');
 
 router.get('/',function(req, res, next) {
     var sql="";
@@ -50,7 +33,7 @@ router.get('/',function(req, res, next) {
 
 
 //user 정보 변경
-router.post('/', upload.single('dog_imagefile'),function(req, res){
+router.post('/', fileUpload.single('dog_imagefile'),function(req, res){
     var body = req.body;
     var user = {
         'dog_name' : req.body.dog_name,
@@ -73,7 +56,7 @@ router.post('/', upload.single('dog_imagefile'),function(req, res){
                 //execution success
                 resultMsg["result"] = 1;
                 res.json(resultMsg);
-                logger.info(JSON.stringify(user) + " insertion success");
+                logger.info(JSON.stringify(user) + " modification success");
             }
         })
 
