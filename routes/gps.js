@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router()
 var fs = require('fs')
-var multer = require('multer')
 
 // DATABASE SETTING
 var connection = require('../configurations/dbConnection');
@@ -26,6 +25,7 @@ router.get('/', function (req, res, next) {
         })
 })
 
+//gps 이미지 파일 가져오기
 router.get('/image', function (req, res, next) {
     connection.query("select * from gps where id=" + req.query.id, function (err, rows) {
         if (err)
