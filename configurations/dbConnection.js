@@ -10,7 +10,7 @@ var db_config={
 }
 
  // DATABASE SETTING
- var connection = mysql.createConnection(db_config);
+ var connection;
 
 function handleDisconnect(){
     connection = mysql.createConnection(db_config);
