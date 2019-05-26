@@ -1,4 +1,6 @@
 const mysql = require('mysql')
+//LOGGER SETTING
+const logger = require('./logConfiguration');
 
 var db_config={
     host     : '13.125.0.94',
@@ -21,7 +23,7 @@ function handleDisconnect(){
         }
     });
     connection.on('error', function(err) {
-        logger.error('db error', err);
+        logger.error('db error: '+err);
         setTimeout(handleDisconnect, 2000);
     });
 }
