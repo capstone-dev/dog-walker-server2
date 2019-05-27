@@ -6,7 +6,7 @@ var path=require('path');
 const logger=require('../configurations/logConfiguration');
 
 router.get('/',function(req, res, next) {
-    res.sendFile(path.join(path.resolve('.'),'/dog-walker-server2/views/main.html'))
+    res.sendFile('/home/ubuntu/deploy/dog-walker-server2/views/main.html')
 });
 
 module.exports = router;
