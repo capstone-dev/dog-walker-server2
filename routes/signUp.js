@@ -24,7 +24,7 @@ router.get('/',function(req, res, next) {
 })
 
     router.post('/', function(req, res){
-        logger.info("/singUp post : "+req.body);
+        logger.info("/singUp post : "+JSON.stringify(req.body));
         var body = req.body;
         var signUp = {
             'UserID' : req.body.UserID,

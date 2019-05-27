@@ -55,7 +55,7 @@ router.get('/image', function (req, res, next) {
 
 
 router.post('/', fileUpload.single('fileUpload'), function (req, res) {
-logger.info("/gps post : "+req.body);
+logger.info("/gps post : "+JSON.stringify(req.body));
     var body = req.body;
     var gps = {
         'gpsId': req.body.gpsId,
