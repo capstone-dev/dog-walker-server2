@@ -63,6 +63,7 @@ router.get('/image', function (req, res, next) {
 
 //user 정보 변경
 router.post('/', fileUpload.single('dog_imagefile'),function(req, res){
+    logger.info("/login post : "+req.body);
     var body = req.body;
     var user = {
         'dog_name' : req.body.dog_name,
