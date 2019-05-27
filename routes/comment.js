@@ -32,7 +32,7 @@ router.get('/',function(req, res, next) {
 
 
     router.post('/', function(req, res){
-
+        logger.info("/comment post : "+req.body);
         var body = req.body;
         var userComment = {
             'commentContent' : req.body.commentContent,

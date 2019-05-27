@@ -24,6 +24,7 @@ router.get('/',function(req, res, next) {
 })
 
     router.post('/', function(req, res){
+        logger.info("/thread post : "+req.body);
         var body = req.body;
         var userThread = {
             'threadTitle' : req.body.threadTitle,

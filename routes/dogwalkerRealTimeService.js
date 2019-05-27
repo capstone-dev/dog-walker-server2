@@ -37,7 +37,7 @@ router.get('/',function(req, res, next) {
 
 
     router.post('/', function(req, res){
-
+        logger.info("/dogwalkerRealTimeService post : "+req.body);
         var body = req.body;
         var dogwalkerRealTimeService = {
             'DogwalkerID' : req.body.DogwalkerID,

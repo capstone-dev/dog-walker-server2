@@ -23,6 +23,7 @@ router.get('/',function(req, res, next) {
 })
 
 router.post('/', function(req, res){
+    logger.info("/walkingService post : "+req.body);
     var body = req.body;
     var walkingService = {
         'user_UserID' : req.body.user_UserID,
