@@ -24,7 +24,9 @@ function handleDisconnect(){
     });
     connection.on('error', function(err) {
         logger.error('db error: '+err);
-        setTimeout(handleDisconnect, 2000);
+        if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+            handleDisconnect();                         // lost due to either server restart, or a
+        }
     });
 }
 handleDisconnect();

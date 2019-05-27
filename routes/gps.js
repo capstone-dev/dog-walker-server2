@@ -8,7 +8,7 @@ var connection = require('../configurations/dbConnection');
 //LOGGER SETTING
 const logger = require('../configurations/logConfiguration');
 //FILEUPLOAD SETTING
-const fileUpload=require('../configurations/fileUploadConfiguration');
+const fileUpload = require('../configurations/fileUploadConfiguration');
 
 
 router.get('/', function (req, res, next) {
@@ -55,7 +55,8 @@ router.get('/image', function (req, res, next) {
 
 
 router.post('/', fileUpload.single('fileUpload'), function (req, res) {
-logger.info("/gps post : "+JSON.stringify(req.body));
+    logger.info("/gps post : " + JSON.stringify(req.body));
+    logger.info("/gps post file: " + JSON.stringify(req.file));
     var body = req.body;
     var gps = {
         'gpsId': req.body.gpsId,
