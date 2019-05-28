@@ -11,6 +11,7 @@ var walkingService=require('./routes/walkingService');
 var loginRoutere=require('./routes/login');
 var dogwalkerRealTimeServiceRouter=require('./routes/dogwalkerRealTimeService');
 var gpsRouter=require('./routes/gps');
+var dogwalkerInfoRouter=require('./routes/dogwalkerInfo');
 
 
 var app = express();
@@ -37,6 +38,7 @@ app.use('/walkingService',walkingService);
 app.use('/login',loginRoutere);
 app.use('/dogwalkerRealTimeService', dogwalkerRealTimeServiceRouter);
 app.use('/gps',gpsRouter);
+app.use('/dogwalkerInfo',dogwalkerInfoRouter);
 
 
 // catch 404 and forward to error handler

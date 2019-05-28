@@ -10,14 +10,13 @@ const logger=require('../configurations/logConfiguration');
 const fileUpload=require('../configurations/fileUploadConfiguration');
 
 router.get('/',function(req, res, next) {
-    logger.info("/login/ GET : "+JSON.stringify(req.body));
+    logger.info("/dogwalkerInfo GET : "+JSON.stringify(req.body));
     var sql="";
     //쿼리스트링 존재안할 시 전체데이터 가져옴
     if(Object.keys(req.query).length==0)
-        sql='select * from user'
+        sql='select UserBigcity,Dogwalkerphoto,UserSmallcity,UserverySmallcity,UserTime from user'
     else{//UserID와 UserPassword에 맞는 user 가져옴
-        // sql='select UserID,UserPassword,UserName,UserEmail,UserGender,UserPhoneNumber,UserBigcity from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
-        sql='select * from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
+        sql='select UserBigcity,Dogwalkerphoto,UserSmallcity,UserverySmallcity,UserTime from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
     }
     var query = connection.query(sql,
         function(err,rows){
@@ -33,16 +32,16 @@ router.get('/',function(req, res, next) {
         })
 })
 
-//user 강아지 이미지 파일 가져오기
+//도그워커 프로필 사진 가져오기
 router.get('/image', function (req, res, next) {
-    logger.info("/login/image GET : "+JSON.stringify(req.body));
+    logger.info("/dogwalkerInfo/image GET : "+JSON.stringify(req.body));
     var sql='select * from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
     connection.query(sql, function (err, rows) {
         if (err)
             res.send('err : ' + err);
         if (rows[0]) {
             logger.info(rows[0]);
-            var fileName = rows[0].dog_image;
+            var fileName = rows[0].Dogwalkerphoto;
             var fileNameExtension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length);
             fs.readFile(fileName,              //파일 읽기
                 function (err, data) {
@@ -64,15 +63,16 @@ router.get('/image', function (req, res, next) {
 })
 
 //user 정보 변경
-router.post('/', fileUpload.single('dog_imagefile'),function(req, res){
-    logger.info("/login POST : "+JSON.stringify(req.body));
-    logger.info("/login POST file: " + JSON.stringify(req.file));
+router.post('/', fileUpload.single('fileUpload'),function(req, res){
+    logger.info("/dogwalkerInfo POST : "+JSON.stringify(req.body));
+    logger.info("/dogwalkerInfo POST file: " + JSON.stringify(req.file));
     var body = req.body;
     var user = {
-        'dog_name' : req.body.dog_name,
-        'dog_species' : req.body.dog_species,
-        'dog_age' : req.body.dog_age,
-        'dog_image' : req.file.path
+        'UserBigcity' : req.body.UserBigcity,
+        'UserverySmallcity' : req.body.UserverySmallcity,
+        'UserSmallcity' : req.body.UserSmallcity,
+        'UserTime' : req.body.UserTime,
+        'Dogwalkerphoto' : req.file.path
     };
     //execute sql
     connection.query("UPDATE user SET ? WHERE UserID='"+body.UserID+"'", user,

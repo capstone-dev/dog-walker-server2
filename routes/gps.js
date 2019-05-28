@@ -12,6 +12,7 @@ const fileUpload = require('../configurations/fileUploadConfiguration');
 
 
 router.get('/', function (req, res, next) {
+    logger.info("/gps GET : "+JSON.stringify(req.body));
     var query = connection.query('select * from gps',
         function (err, rows) {
             if (err) {
@@ -27,6 +28,7 @@ router.get('/', function (req, res, next) {
 
 //gps 이미지 파일 가져오기
 router.get('/image', function (req, res, next) {
+    logger.info("/gps/image GET : "+JSON.stringify(req.body));
     connection.query("select * from gps where id=" + req.query.id, function (err, rows) {
         if (err)
             res.send('err : ' + err);
@@ -55,8 +57,8 @@ router.get('/image', function (req, res, next) {
 
 
 router.post('/', fileUpload.single('fileUpload'), function (req, res) {
-    logger.info("/gps post : " + JSON.stringify(req.body));
-    logger.info("/gps post file: " + JSON.stringify(req.file));
+    logger.info("/gps POST : " + JSON.stringify(req.body));
+    logger.info("/gps POST file: " + JSON.stringify(req.file));
     var body = req.body;
     var gps = {
         'gpsId': req.body.gpsId,
