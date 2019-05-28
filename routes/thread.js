@@ -9,6 +9,7 @@ const logger=require('../configurations/logConfiguration');
 
 
 router.get('/',function(req, res, next) {
+    logger.info("/thread GET");
     var query = connection.query('select * from thread',
         function (err, rows) {
             if (err) {
@@ -24,7 +25,7 @@ router.get('/',function(req, res, next) {
 })
 
     router.post('/', function(req, res){
-        logger.info("/thread post : "+JSON.stringify(req.body));
+        logger.info("/thread POST : "+JSON.stringify(req.body));
         var body = req.body;
         var userThread = {
             'threadTitle' : req.body.threadTitle,

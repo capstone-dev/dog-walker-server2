@@ -12,8 +12,15 @@ const fileUpload = require('../configurations/fileUploadConfiguration');
 
 
 router.get('/', function (req, res, next) {
-    logger.info("/gps GET : "+JSON.stringify(req.body));
-    var query = connection.query('select * from gps',
+    logger.info("/gps GET");
+    var sql="";
+    //쿼리스트링 존재안할 시 전체데이터 가져옴
+    if(Object.keys(req.query).length==0)
+        sql='select * from gps'
+    else{//UserID와 UserPassword에 맞는 user 가져옴
+        sql='select * from gps where id=' +req.query.id;
+    }
+    var query = connection.query(sql,
         function (err, rows) {
             if (err) {
                 res.send('err : ' + err);

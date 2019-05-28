@@ -10,7 +10,7 @@ const logger=require('../configurations/logConfiguration');
 const fileUpload=require('../configurations/fileUploadConfiguration');
 
 router.get('/',function(req, res, next) {
-    logger.info("/login/ GET : "+JSON.stringify(req.body));
+    logger.info("/login GET");
     var sql="";
     //쿼리스트링 존재안할 시 전체데이터 가져옴
     if(Object.keys(req.query).length==0)

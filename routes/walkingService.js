@@ -9,6 +9,7 @@ const logger=require('../configurations/logConfiguration');
 
 
 router.get('/',function(req, res, next) {
+    logger.info("/walkingService GET");
     var query = connection.query('select * from walking_service',
         function (err, rows) {
             if (err) {
@@ -23,7 +24,7 @@ router.get('/',function(req, res, next) {
 })
 
 router.post('/', function(req, res){
-    logger.info("/walkingService post : "+JSON.stringify(req.body));
+    logger.info("/walkingService POST : "+JSON.stringify(req.body));
     var body = req.body;
     var walkingService = {
         'user_UserID' : req.body.user_UserID,

@@ -7,7 +7,7 @@ var connection=require('../configurations/dbConnection');
 const logger=require('../configurations/logConfiguration');
 
 router.get('/',function(req, res, next) {
-
+    logger.info("/comment GET");
     var sql="";
     //쿼리스트링 존재안할 시 전체데이터 가져옴
     if(Object.keys(req.query).length==0)
@@ -32,7 +32,7 @@ router.get('/',function(req, res, next) {
 
 
     router.post('/', function(req, res){
-        logger.info("/comment post : "+JSON.stringify(req.body));
+        logger.info("/comment POST : "+JSON.stringify(req.body));
         var body = req.body;
         var userComment = {
             'commentContent' : req.body.commentContent,

@@ -9,6 +9,7 @@ const logger=require('../configurations/logConfiguration');
 
 
 router.get('/',function(req, res, next) {
+    logger.info("/singUP GET");
     var query = connection.query('select * from user',
         function (err, rows) {
             if (err) {
@@ -24,7 +25,7 @@ router.get('/',function(req, res, next) {
 })
 
     router.post('/', function(req, res){
-        logger.info("/singUp post : "+JSON.stringify(req.body));
+        logger.info("/singUp POST : "+JSON.stringify(req.body));
         var body = req.body;
         var signUp = {
             'UserID' : req.body.UserID,
