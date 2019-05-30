@@ -10,7 +10,7 @@ const logger = require('../configurations/logConfiguration');
 //FILEUPLOAD SETTING
 const fileUpload = require('../configurations/fileUploadConfiguration');
 
-
+//gps 가져옴
 router.get('/', function (req, res, next) {
     logger.info("/gps GET");
     var sql="";
@@ -33,6 +33,7 @@ router.get('/', function (req, res, next) {
         })
 })
 
+//gps의 id로 marker 정보 가져옴
 router.get('/marker', function (req, res, next) {
     logger.info("/gps/marker GET");
     var sql="";
@@ -50,6 +51,7 @@ var query = connection.query(sql,
     })
 })
 
+//gps의 id로 dogwalkerPosition 정보 가져옴
 router.get('/dogwalkerPosition', function (req, res, next) {
     logger.info("/gps/dogwalkerPosition GET");
     var sql="";
@@ -68,7 +70,7 @@ router.get('/dogwalkerPosition', function (req, res, next) {
 })
 
 
-//marker의 이미지 파일 가져오기
+//markerId에 해당하는 이미지 파일 가져오기
 router.get('/marker/image', function (req, res, next) {
     logger.info("/gps/marker/image GET : "+JSON.stringify(req.body));
     connection.query("select * from marker where markerId=" + req.query.markerId, function (err, rows) {
@@ -144,7 +146,7 @@ router.post('/marker', fileUpload.single('fileUpload'), function (req, res) {
         'PhotoURL': req.file.path,
         'photoLatitude': req.body.photoLatitude,
         'photoLongitude': req.body.photoLongitude,
-        'gpsId ': req.body.gpsId
+        'gpsId': req.body.gpsId
     };
     //execute sql
     connection.query("INSERT INTO marker set ?", marker,
@@ -173,7 +175,7 @@ router.post('/dogwalkerPosition', function (req, res) {
     var dogwalkerPosition = {
         'dogwalkerLatitude': req.body.dogwalkerLatitude,
         'dogwalkerLongitude': req.body.dogwalkerLongitude,
-        'gpsId ': req.body.gpsId
+        'gpsId': req.body.gpsId
     };
     //execute sql
     connection.query("INSERT INTO dogwalker_position set ?", dogwalkerPosition,
