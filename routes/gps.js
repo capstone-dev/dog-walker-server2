@@ -36,7 +36,7 @@ router.get('/', function (req, res, next) {
 router.get('/marker', function (req, res, next) {
     logger.info("/gps/marker GET");
     var sql="";
-    sql='select * from gps, marker where gps.id=marker.gpsId AND id=' +req.query.id;
+    sql='select marker.* from gps,marker where gps.id=marker.gpsId AND id=' +req.query.id;
 var query = connection.query(sql,
     function (err, rows) {
         if (err) {
@@ -50,15 +50,33 @@ var query = connection.query(sql,
     })
 })
 
-//gps 이미지 파일 가져오기
-router.get('/image', function (req, res, next) {
-    logger.info("/gps/image GET : "+JSON.stringify(req.body));
-    connection.query("select * from gps where id=" + req.query.id, function (err, rows) {
+router.get('/dogwalkerPosition', function (req, res, next) {
+    logger.info("/gps/dogwalkerPosition GET");
+    var sql="";
+    sql='select dogwalker_position.* from gps,dogwalker_position where gps.id=dogwalker_position.gpsId AND id=' +req.query.id;
+    var query = connection.query(sql,
+        function (err, rows) {
+            if (err) {
+                res.send('err : ' + err);
+            }
+            if (rows[0]) {
+                res.send(rows)
+            } else {
+                res.send('no rows in db');
+            }
+        })
+})
+
+
+//marker의 이미지 파일 가져오기
+router.get('/marker/image', function (req, res, next) {
+    logger.info("/gps/marker/image GET : "+JSON.stringify(req.body));
+    connection.query("select * from marker where markerId=" + req.query.markerId, function (err, rows) {
         if (err)
             res.send('err : ' + err);
         if (rows[0]) {
             logger.info(rows[0]);
-            var fileName = rows[0].photoData;
+            var fileName = rows[0].PhotoURL;
             var fileNameExtension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length);
             fs.readFile(fileName,              //파일 읽기
                 function (err, data) {
@@ -80,16 +98,11 @@ router.get('/image', function (req, res, next) {
 })
 
 
-router.post('/', fileUpload.single('fileUpload'), function (req, res) {
+router.post('/', function (req, res) {
     logger.info("/gps POST : " + JSON.stringify(req.body));
-    logger.info("/gps POST file: " + JSON.stringify(req.file));
     var body = req.body;
     var gps = {
         'gpsId': req.body.gpsId,
-        'markerId': req.body.markerId,
-        'photoData': req.file.path,
-        'photoLatitude': req.body.photoLatitude,
-        'photoLongitude': req.body.photoLongitude,
         'dogwalkerLatitude': req.body.dogwalkerLatitude,
         'dogwalkerLongitude': req.body.dogwalkerLongitude,
         'startDogwalkerLatitude': req.body.startDogwalkerLatitude,
@@ -122,29 +135,19 @@ router.post('/', fileUpload.single('fileUpload'), function (req, res) {
         })
 })
 
-router.post('/', fileUpload.single('fileUpload'), function (req, res) {
+router.post('/marker', fileUpload.single('fileUpload'), function (req, res) {
     logger.info("/gps/marker POST : " + JSON.stringify(req.body));
     logger.info("/gps/marker POST file: " + JSON.stringify(req.file));
     var body = req.body;
-    var gps = {
-        'gpsId': req.body.gpsId,
+    var marker = {
         'markerId': req.body.markerId,
-        'photoData': req.file.path,
+        'PhotoURL': req.file.path,
         'photoLatitude': req.body.photoLatitude,
         'photoLongitude': req.body.photoLongitude,
-        'dogwalkerLatitude': req.body.dogwalkerLatitude,
-        'dogwalkerLongitude': req.body.dogwalkerLongitude,
-        'startDogwalkerLatitude': req.body.startDogwalkerLatitude,
-        'startDogwalkerLongitude': req.body.startDogwalkerLongitude,
-        'endDogwalkerLatitude': req.body.endDogwalkerLatitude,
-        'endDogwalkerLongitude': req.body.endDogwalkerLongitude,
-        'walkDistance': req.body.walkDistance,
-        'start_time': req.body.start_time,
-        'end_time': req.body.end_time,
-        'walkTime': req.body.walkTime
+        'gpsId ': req.body.gpsId
     };
     //execute sql
-    connection.query("INSERT INTO gps set ?", gps,
+    connection.query("INSERT INTO marker set ?", marker,
         function (error, result, fields) {
 
             var resultMsg = {};
@@ -159,10 +162,38 @@ router.post('/', fileUpload.single('fileUpload'), function (req, res) {
                 resultMsg["result"] = 1;
                 resultMsg["id"] = result.insertId;
                 res.json(resultMsg);
-                logger.info(JSON.stringify(gps) + " insertion success");
+                logger.info(JSON.stringify(marker) + " insertion success");
             }
         })
 })
 
+router.post('/dogwalkerPosition', function (req, res) {
+    logger.info("/gps/dogwalkerPosition POST : " + JSON.stringify(req.body));
+    var body = req.body;
+    var dogwalkerPosition = {
+        'dogwalkerLatitude': req.body.dogwalkerLatitude,
+        'dogwalkerLongitude': req.body.dogwalkerLongitude,
+        'gpsId ': req.body.gpsId
+    };
+    //execute sql
+    connection.query("INSERT INTO dogwalker_position set ?", dogwalkerPosition,
+        function (error, result, fields) {
+
+            var resultMsg = {};
+
+            if (error) {
+                //에러 발생시
+                resultMsg["result"] = 0;
+                res.json(resultMsg);
+                logger.error(error);
+            } else {
+                //execution success
+                resultMsg["result"] = 1;
+                resultMsg["id"] = result.insertId;
+                res.json(resultMsg);
+                logger.info(JSON.stringify(dogwalkerPosition) + " insertion success");
+            }
+        })
+})
 
 module.exports = router;

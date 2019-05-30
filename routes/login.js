@@ -92,7 +92,6 @@ router.post('/', fileUpload.single('dog_imagefile'),function(req, res){
                 logger.info(JSON.stringify(user) + " modification success");
             }
         })
-
 })
 
 
