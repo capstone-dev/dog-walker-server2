@@ -72,6 +72,7 @@ router.post('/', fileUpload.single('fileUpload'),function(req, res){
         'UserverySmallcity' : req.body.UserverySmallcity,
         'UserSmallcity' : req.body.UserSmallcity,
         'UserTime' : req.body.UserTime,
+        'UserInfo' : req.body.UserInfo,
         'Dogwalkerphoto' : req.file.path
     };
     //execute sql
