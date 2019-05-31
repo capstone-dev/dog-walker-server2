@@ -47,9 +47,9 @@ exports.postResultHandling = function (req, res, error, result, queryType, respo
         resultMsg["result"] = "fail";
         resultMsg["error"] = error;
 
-        if (responseType = "json")
+        if (responseType == "json")
             res.json(resultMsg);
-        else if ((responseType = "string"))
+        else if ((responseType == "string"))
             res.send('err : ' + error);
 
         logger.error(error);
@@ -63,9 +63,9 @@ exports.postResultHandling = function (req, res, error, result, queryType, respo
             logger.info(JSON.stringify(req.body) + " modification success");
         }
 
-        if (responseType = "json")
+        if (responseType == "json")
             res.json(resultMsg);
-        else if ((responseType = "string"))
+        else if ((responseType == "string"))
             res.send('success create' + req.body);
     }
 }

@@ -17,6 +17,7 @@ router.get('/', function (req, res, next) {
         })
 })
 
+//요청 보낼 때 필드: UserID, UserName,UserEmail, UserPhoneNumber, UserGender, UserBigcity, UserPassword, token
 router.post('/', function (req, res) {
     logger.info("/singUp POST : " + JSON.stringify(req.body));
     var body = req.body;
@@ -27,6 +28,7 @@ router.post('/', function (req, res) {
         })
 })
 
+//요청 보낼 때 필드: UserID, UserName,UserEmail, UserPhoneNumber, UserGender, UserBigcity
 router.put('/', function (req, res) {
     logger.info("/singUp PUT : " + JSON.stringify(req.body));
     var body = req.body;
