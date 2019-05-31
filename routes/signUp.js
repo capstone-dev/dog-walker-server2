@@ -35,8 +35,7 @@ router.get('/',function(req, res, next) {
             'UserGender' : req.body.UserGender,
             'UserBigcity' : req.body.UserBigcity,
             'UserPassword' : req.body.UserPassword,
-            // 'dog_name':req.body.dog_name,
-            // 'dog_species':req.body.dog_species
+            'token' : req.body.token
         };
         //execute sql
         connection.query("INSERT INTO user set ?", signUp,
