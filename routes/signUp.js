@@ -23,7 +23,14 @@ router.get('/token', function (req, res, next) {
     logger.info("/signUp/token GET");
     var query = connection.query('select token from user where UserID="'+req.query.UserID+'"',
         function (err, rows) {
-            dbResultHandle.getResultHandling(req,res,rows,err,"Not array")
+            if (err) {
+                res.send('err : ' + err);
+            }
+            if (rows[0]) {
+                    res.send(rows[0]["token"])
+            } else {
+                res.send('no rows in db');
+            }
         })
 })
 
