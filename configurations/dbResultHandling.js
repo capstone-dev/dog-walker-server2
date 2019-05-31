@@ -66,6 +66,6 @@ exports.postResultHandling = function (req, res, error, result, queryType, respo
         if (responseType == "json")
             res.json(resultMsg);
         else if ((responseType == "string"))
-            res.send('success create' + req.body);
+            res.send('success create' + JSON.stringify(req.body));
     }
 }

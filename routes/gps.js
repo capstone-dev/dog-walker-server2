@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
     }
     var query = connection.query(sql,
         function (err, rows) {
-            dbResultHandle.getResultHandling(req,res,rows,err,"Not array")
+            dbResultHandle.getResultHandling(req, res, rows, err, "Not array")
         })
 })
 
@@ -35,7 +35,7 @@ router.get('/marker', function (req, res, next) {
     sql = 'select marker.* from gps,marker where gps.id=marker.gpsId AND id=' + req.query.id;
     var query = connection.query(sql,
         function (err, rows) {
-            dbResultHandle.getResultHandling(req,res,rows,err,"array")
+            dbResultHandle.getResultHandling(req, res, rows, err, "array")
         })
 })
 
@@ -46,7 +46,7 @@ router.get('/dogwalkerPosition', function (req, res, next) {
     sql = 'select dogwalker_position.* from gps,dogwalker_position where gps.id=dogwalker_position.gpsId AND id=' + req.query.id;
     var query = connection.query(sql,
         function (err, rows) {
-            dbResultHandle.getResultHandling(req,res,rows,err,"array")
+            dbResultHandle.getResultHandling(req, res, rows, err, "array")
         })
 })
 
@@ -59,15 +59,15 @@ router.get('/marker/image', function (req, res, next) {
     });
 })
 
-//요청 보낼 때 필드: startDogwalkerLatitude, startDogwalkerLongitude, endDogwalkerLatitude, endDogwalkerLongitude, walkDistance
-//start_time, end_time, walkTime
+/*요청 보낼 때 필드: startDogwalkerLatitude, startDogwalkerLongitude, endDogwalkerLatitude, endDogwalkerLongitude, walkDistance,
+start_time, end_time, walkTime, start_time, end_time, walkTime*/
 router.post('/', function (req, res) {
     logger.info("/gps POST : " + JSON.stringify(req.body));
     var body = req.body;
     //execute sql
     connection.query("INSERT INTO gps set ?", body,
         function (error, result, fields) {
-            dbResultHandle.postResultHandling(req, res,error,result, "insert","json");
+            dbResultHandle.postResultHandling(req, res, error, result, "insert", "json");
         })
 })
 
@@ -81,7 +81,7 @@ router.post('/marker', fileUpload.single('fileUpload'), function (req, res) {
     //execute sql
     connection.query("INSERT INTO marker set ?", body,
         function (error, result, fields) {
-            dbResultHandle.postResultHandling(req, res,error,result, "insert","json");
+            dbResultHandle.postResultHandling(req, res, error, result, "insert", "json");
         })
 })
 
@@ -92,7 +92,7 @@ router.post('/dogwalkerPosition', function (req, res) {
     //execute sql
     connection.query("INSERT INTO dogwalker_position set ?", body,
         function (error, result, fields) {
-            dbResultHandle.postResultHandling(req, res,error,result, "insert","json");
+            dbResultHandle.postResultHandling(req, res, error, result, "insert", "json");
         })
 })
 
