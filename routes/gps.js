@@ -20,6 +20,7 @@ router.get('/', function (req, res, next) {
     if (Object.keys(req.query).length == 0)
         sql = 'select * from gps'
     else {//UserID와 UserPassword에 맞는 user 가져옴
+        logger.info("/gps GET queryString: " + JSON.stringify(req.query));
         sql = 'select * from gps where id=' + req.query.id;
     }
     var query = connection.query(sql,
@@ -31,6 +32,7 @@ router.get('/', function (req, res, next) {
 //gps의 id로 marker 정보 가져옴
 router.get('/marker', function (req, res, next) {
     logger.info("/gps/marker GET");
+    logger.info("/gps/marker GET queryString: " + JSON.stringify(req.query));
     var sql = "";
     sql = 'select marker.* from gps,marker where gps.id=marker.gpsId AND id=' + req.query.id;
     var query = connection.query(sql,
@@ -42,6 +44,7 @@ router.get('/marker', function (req, res, next) {
 //gps의 id로 dogwalkerPosition 정보 가져옴
 router.get('/dogwalkerPosition', function (req, res, next) {
     logger.info("/gps/dogwalkerPosition GET");
+    logger.info("/gps/dogwalkerPosition GET queryString: " + JSON.stringify(req.query));
     var sql = "";
     sql = 'select dogwalker_position.* from gps,dogwalker_position where gps.id=dogwalker_position.gpsId AND id=' + req.query.id;
     var query = connection.query(sql,

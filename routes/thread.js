@@ -9,16 +9,16 @@ const logger = require('../configurations/logConfiguration');
 
 
 router.get('/', function (req, res, next) {
+    logger.info("/thread GET");
     var sql = "";
     if (Object.keys(req.query).length == 0) {
         sql = 'select * from thread';
     } else {
-        var objectKeys=Object.keys(req.query);
-        var fieldName = objectKeys[0];
+        logger.info("/thread GET queryString: " + JSON.stringify(req.query));
+        var fieldName = Object.keys(req.query)[0];
         var fieldValue = req.query[fieldName];
-        sql = 'select * from thread WHERE ' + fieldName + '="' + fieldValue+'"';
+        sql = 'select * from thread WHERE ' + fieldName + '="' + fieldValue + '"';
     }
-    console.log(sql);
     var query = connection.query(sql,
         function (err, rows) {
             if (err) {

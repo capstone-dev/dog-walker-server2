@@ -18,7 +18,7 @@ router.get('/',function(req, res, next) {
     if(Object.keys(req.query).length==0)
         sql='select * from user'
     else{//UserID와 UserPassword에 맞는 user 가져옴
-        // sql='select UserID,UserPassword,UserName,UserEmail,UserGender,UserPhoneNumber,UserBigcity from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
+        logger.info("/login GET queryString: " + JSON.stringify(req.query));
         sql='select * from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
     }
     var query = connection.query(sql,

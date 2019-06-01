@@ -18,6 +18,7 @@ router.get('/',function(req, res, next) {
     if(Object.keys(req.query).length==0)
         sql='select UserBigcity,Dogwalkerphoto,UserSmallcity,UserverySmallcity,UserTime from user'
     else{//UserID와 UserPassword에 맞는 user 가져옴
+        logger.info("/dogwalkerInfo GET queryString: " + JSON.stringify(req.query));
         sql='select UserBigcity,Dogwalkerphoto,UserSmallcity,UserverySmallcity,UserTime from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
     }
     var query = connection.query(sql,
