@@ -2,15 +2,24 @@ var express = require('express')
 var router = express.Router()
 
 // DATABASE SETTING
-var connection=require('../configurations/dbConnection');
+var connection = require('../configurations/dbConnection');
 
 //LOGGER SETTING
-const logger=require('../configurations/logConfiguration');
+const logger = require('../configurations/logConfiguration');
 
 
-router.get('/',function(req, res, next) {
-    logger.info("/thread GET");
-    var query = connection.query('select * from thread',
+router.get('/', function (req, res, next) {
+    var sql = "";
+    if (Object.keys(req.query).length == 0) {
+        sql = 'select * from thread';
+    } else {
+        var objectKeys=Object.keys(req.query);
+        var fieldName = objectKeys[0];
+        var fieldValue = req.query[fieldName];
+        sql = 'select * from thread WHERE ' + fieldName + '="' + fieldValue+'"';
+    }
+    console.log(sql);
+    var query = connection.query(sql,
         function (err, rows) {
             if (err) {
                 res.send('err : ' + err);
@@ -24,43 +33,40 @@ router.get('/',function(req, res, next) {
 
 })
 
-    router.post('/', function(req, res){
-        logger.info("/thread POST : "+JSON.stringify(req.body));
-        var body = req.body;
-        var userThread = {
-            'threadTitle' : req.body.threadTitle,
-            'userLocation' : req.body.userLocation,
-            'threadNumber' : req.body.threadNumber,
-            'threadContent' : req.body.threadContent,
-            'chatroomUserName' : req.body.chatroomUserName,
-            'threadWalkDate': req.body.threadWalkDate,
-            'user_UserID' : req.body.user_UserID
-        };
-        //execute sql
-        connection.query("INSERT INTO thread set ?", userThread,
-            function (error, result, fields){
+router.post('/', function (req, res) {
+    logger.info("/thread POST : " + JSON.stringify(req.body));
+    var body = req.body;
+    var userThread = {
+        'threadTitle': req.body.threadTitle,
+        'userLocation': req.body.userLocation,
+        'threadNumber': req.body.threadNumber,
+        'threadContent': req.body.threadContent,
+        'chatroomUserName': req.body.chatroomUserName,
+        'threadWalkDate': req.body.threadWalkDate,
+        'user_UserID': req.body.user_UserID
+    };
+    //execute sql
+    connection.query("INSERT INTO thread set ?", userThread,
+        function (error, result, fields) {
 
-                var resultMsg={};
+            var resultMsg = {};
 
-                if(error){
-                    //에러 발생시
-                    resultMsg["result"]=0;
-                    resultMsg["error"]=error;
-                    // res.json(resultMsg);
-                    res.send('err : ' + error)
-                }
-                else {
-                    //execution success
-                    resultMsg["result"]=1;
-                    resultMsg["id"]=result.insertId;
-                    // res.json(resultMsg);
-                    res.send('success create userThread');
-                    logger.info(JSON.stringify(userThread)+" insertion success");
-                }
-            })
-    })
-
-
+            if (error) {
+                //에러 발생시
+                resultMsg["result"] = 0;
+                resultMsg["error"] = error;
+                // res.json(resultMsg);
+                res.send('err : ' + error)
+            } else {
+                //execution success
+                resultMsg["result"] = 1;
+                resultMsg["id"] = result.insertId;
+                // res.json(resultMsg);
+                res.send('success create userThread');
+                logger.info(JSON.stringify(userThread) + " insertion success");
+            }
+        })
+})
 
 
 module.exports = router;
