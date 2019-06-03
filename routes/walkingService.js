@@ -10,7 +10,16 @@ const logger=require('../configurations/logConfiguration');
 
 router.get('/',function(req, res, next) {
     logger.info("/walkingService GET");
-    var query = connection.query('select * from walking_service',
+    var sql = "";
+    if (Object.keys(req.query).length == 0) {
+        sql = 'select * from walking_service';
+    } else {
+        logger.info("/walking_service GET queryString: " + JSON.stringify(req.query));
+        var fieldName = Object.keys(req.query)[0];
+        var fieldValue = req.query[fieldName];
+        sql = 'select * from walking_service WHERE ' + fieldName + '="' + fieldValue + '"';
+    }
+    var query = connection.query(sql,
         function (err, rows) {
             if (err) {
                 res.send('err : ' + err);
