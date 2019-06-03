@@ -44,7 +44,7 @@ router.post('/', function(req, res){
         'selected': req.body.selected
     };
     //execute sql
-    connection.query("INSERT INTO comment set ?", dogwalkerRealTimeService,
+    connection.query("INSERT INTO dogwalkerRealTimeService set ?", dogwalkerRealTimeService,
         function (error, result, fields){
             var resultMsg={};
 
