@@ -40,8 +40,8 @@ router.post('/', function(req, res){
         'DogwalkerID': req.body.DogwalkerID,
         'DogwalkerBigcity': req.body.DogwalkerBigcity,
         'DogwalkerSmallcity': req.body.DogwalkerSmallcity,
-        'selected': req.body.selected,
-        'DogWalkerGender': req.body.DogwalkerGender
+        'DogWalkerGender': req.body.DogwalkerGender,
+        'selected': req.body.selected
     };
     //execute sql
     connection.query("INSERT INTO comment set ?", dogwalkerRealTimeService,
