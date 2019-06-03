@@ -33,8 +33,8 @@ router.get('/', function (req, res, next) {
 })
 
 
-router.post('/', function (req, res) {
-    logger.info("/dogwalkerRealTimeService post : " + JSON.stringify(req.body));
+router.post('/', function(req, res){
+    logger.info("/dogwalkerRealTimeService POST : "+JSON.stringify(req.body));
     var body = req.body;
     var dogwalkerRealTimeService = {
         'DogwalkerID': req.body.DogwalkerID,
@@ -42,19 +42,26 @@ router.post('/', function (req, res) {
         'DogwalkerSmallcity': req.body.DogwalkerSmallcity,
         'selected': req.body.selected,
         'DogWalkerGender': req.body.DogwalkerGender
-
     };
     //execute sql
-    connection.query("INSERT INTO dogwalkerRealTimeService set ?", dogwalkerRealTimeService,
-        function (error, result, fields) {
-            if (error) {
+    connection.query("INSERT INTO comment set ?", dogwalkerRealTimeService,
+        function (error, result, fields){
+            var resultMsg={};
+
+            if(error){
                 //에러 발생시
-                res.send('err : ' + error);
-                throw err;
-            } else {
+                resultMsg["result"]=0;
+                resultMsg["error"]=error;
+                // res.json(resultMsg);
+                res.send('err : ' + error)
+            }
+            else {
                 //execution success
+                resultMsg["result"]=1;
+                resultMsg["id"]=result.insertId;
+                // res.json(resultMsg);
                 res.send('success create dogwalkerRealTimeService');
-                logger.info(JSON.stringify(dogwalkerRealTimeService) + " insertion success");
+                logger.info(JSON.stringify(dogwalkerRealTimeService)+" insertion success");
             }
         })
 })
