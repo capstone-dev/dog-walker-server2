@@ -27,7 +27,7 @@ router.get('/',function(req, res, next) {
                 res.send('err : ' + err);
             }
             if(rows[0]){
-                res.send(rows[0])
+                res.send(rows)
             }
             else{
                 res.send('Incorret Id or Password');
@@ -45,6 +45,8 @@ router.get('/image', function (req, res, next) {
 })
 
 //user 정보 변경
+//요청 보낼 때 필드: fileUpload, UserID, userBigcity, Dogwalkerphoto, UserSmallcity
+//UserverySmallcity, UserTime (배열)
 router.post('/', fileUpload.single('fileUpload'),function(req, res){
     logger.info("/dogwalkerInfo POST : "+JSON.stringify(req.body));
     logger.info("/dogwalkerInfo POST file: " + JSON.stringify(req.file));
