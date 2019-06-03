@@ -74,7 +74,7 @@ router.post('/', function (req, res) {
         })
 })
 
-//marker 이미지 업로드
+//marker 정보 및 이미지 업로드
 //요청 보낼 때 필드: fileUpload, markerId, photoLatitude, photoLongitude, gpsId
 router.post('/marker', fileUpload.single('fileUpload'), function (req, res) {
     logger.info("/gps/marker POST : " + JSON.stringify(req.body));
@@ -96,6 +96,20 @@ router.post('/dogwalkerPosition', function (req, res) {
     connection.query("INSERT INTO dogwalker_position set ?", body,
         function (error, result, fields) {
             dbResultHandle.postResultHandling(req, res, error, result, "insert", "json");
+        })
+})
+
+//marker 정보 및 이미지 수정
+//요청 보낼 때 필드: fileUpload, markerId, photoLatitude, photoLongitude, gpsId
+router.put('/marker', fileUpload.single('fileUpload'), function (req, res) {
+    logger.info("/gps/marker POST : " + JSON.stringify(req.body));
+    logger.info("/gps/marker POST file: " + JSON.stringify(req.file));
+    var body = req.body;
+    body["PhotoURL"] = req.file.path;
+    //execute sql
+    connection.query("UPDATE marker SET ? WHERE markerId=" + body.markerId, body,
+        function (error, result, fields) {
+            dbResultHandle.postResultHandling(req, res, error, result, "update", "json");
         })
 })
 
