@@ -42,7 +42,7 @@ router.post('/', function (req, res) {
         'DogwalkerID': req.body.DogwalkerID,
         'DogwalkerBigcity': req.body.DogwalkerBigcity,
         'DogwalkerSmallcity': req.body.DogwalkerSmallcity,
-        'DogWalkerGender': req.body.DogwalkerGender,
+        'DogwalkerGender': req.body.DogwalkerGender,
         'selected': req.body.selected
 
     };
