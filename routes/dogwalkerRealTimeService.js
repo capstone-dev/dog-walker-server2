@@ -66,6 +66,7 @@ router.post('/', function(req, res){
         })
 })
 
+/*
 router.put('/', function (req, res) {
     logger.info("/dogwalkerRealTimeService PUT : " + JSON.stringify(req.body));
     var body = req.body;
@@ -75,6 +76,7 @@ router.put('/', function (req, res) {
             dbResultHandle.postResultHandling(req, res, error, result, "update", "string");
         })
 })
+*/
 
 module.exports = router;
                                 
