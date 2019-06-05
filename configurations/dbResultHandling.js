@@ -69,3 +69,30 @@ exports.postResultHandling = function (req, res, error, result, queryType, respo
             res.send('success create' + JSON.stringify(req.body));
     }
 }
+
+
+exports.deleteResultHandling = function (req, res, error, result, responseType) {
+    var resultMsg = {};
+    if (error) {
+        //에러 발생시
+        resultMsg["result"] = "fail";
+        resultMsg["error"] = error;
+
+        if (responseType == "json")
+            res.json(resultMsg);
+        else if ((responseType == "string"))
+            res.send('err : ' + error);
+
+        logger.error(error);
+    } else {
+        //execution success
+        resultMsg["result"] = "success";
+        logger.info(JSON.stringify(req.body) + " deletion success");
+
+
+        if (responseType == "json")
+            res.json(resultMsg);
+        else if ((responseType == "string"))
+            res.send('success delete ' + JSON.stringify(req.body));
+    }
+}
