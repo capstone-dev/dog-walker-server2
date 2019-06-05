@@ -62,10 +62,11 @@ router.post('/', function (req, res) {
 })
 
 router.delete('/', function (req, res) {
-    logger.info("/comment DELETE : " + JSON.stringify(req.body));
-    var body=req.body;
+    logger.info("/comment DELETE queryString: " + JSON.stringify(req.query));
+    var body = req.body;
+    var sqlColumnValueArray = [req.query.commentId];
     //execute sql
-    connection.query("DELETE FROM comment WHERE commentId= '" + body.commentId+"'",
+    connection.query("DELETE FROM comment WHERE commentId=? ", sqlColumnValueArray,
         function (error, result, fields) {
             dbResultHandle.deleteResultHandling(req, res, error, result, "string");
         })

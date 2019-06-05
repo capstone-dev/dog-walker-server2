@@ -72,10 +72,11 @@ router.put('/', function (req, res) {
 })
 
 router.delete('/', function (req, res) {
-    logger.info("/dogwalkerRealTimeService DELETE : " + JSON.stringify(req.body));
-    var body=req.body;
+    logger.info("/dogwalkerRealTimeService DELETE queryString: " + JSON.stringify(req.query));
+    var body = req.body;
+    var sqlColumnValueArray=[req.query.DogwalkerID];
     //execute sql
-    connection.query("DELETE FROM dogwalkerRealTimeService WHERE DogwalkerID='" + body.DogwalkerID + "'",
+    connection.query("DELETE FROM dogwalkerRealTimeService WHERE DogwalkerID=?", sqlColumnValueArray,
         function (error, result, fields) {
             dbResultHandle.deleteResultHandling(req, res, error, result, "string");
         })

@@ -87,12 +87,12 @@ exports.deleteResultHandling = function (req, res, error, result, responseType) 
     } else {
         //execution success
         resultMsg["result"] = "success";
-        logger.info(JSON.stringify(req.body) + " deletion success");
+        logger.info(JSON.stringify(req.query) + " deletion success");
 
 
         if (responseType == "json")
             res.json(resultMsg);
         else if ((responseType == "string"))
-            res.send('success delete ' + JSON.stringify(req.body));
+            res.send('success delete ' + JSON.stringify(req.query));
     }
 }
