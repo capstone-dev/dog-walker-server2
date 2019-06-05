@@ -6,7 +6,8 @@ var connection = require('../configurations/dbConnection');
 
 //LOGGER SETTING
 const logger = require('../configurations/logConfiguration');
-
+//dbResultHandling SETTING
+const dbResultHandle = require('../configurations/dbResultHandling');
 
 router.get('/', function (req, res, next) {
     logger.info("/thread GET");
@@ -68,5 +69,30 @@ router.post('/', function (req, res) {
         })
 })
 
+//요청 보낼 때 필드: UserID(필수), threadContent, threadTitle, userLocation, threadNumber,
+// chatroomUserName, threadWalkDate, user_UserID
+//
+router.put('/', function (req, res) {
+    logger.info("/thread PUT : " + JSON.stringify(req.body));
+    var body = req.body;
+    var sqlColumnValueArray = [body, body.threadId];
+    // sqlColumnValueArray["threadId"] = body.threadId;
+    //execute sql
+    connection.query("UPDATE thread SET ? WHERE threadId=?", sqlColumnValueArray,
+        function (error, result, fields) {
+            dbResultHandle.postResultHandling(req, res, error, result, "update", "string");
+        })
+})
+
+router.delete('/', function (req, res) {
+    logger.info("/thread DELETE queryString: " + JSON.stringify(req.query));
+    var body = req.body;
+    var sqlColumnValueArray = [req.query.threadId];
+    //execute sql
+    connection.query("DELETE FROM thread WHERE threadId=?", sqlColumnValueArray,
+        function (error, result, fields) {
+            dbResultHandle.deleteResultHandling(req, res, error, result, "string");
+        })
+})
 
 module.exports = router;
