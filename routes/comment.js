@@ -5,6 +5,8 @@ var router = express.Router()
 var connection = require('../configurations/dbConnection');
 //LOGGER SETTING
 const logger = require('../configurations/logConfiguration');
+//dbResultHandling SETTING
+const dbResultHandle = require('../configurations/dbResultHandling');
 
 router.get('/', function (req, res, next) {
     logger.info("/comment GET");
@@ -63,7 +65,7 @@ router.delete('/', function (req, res) {
     logger.info("/comment DELETE : " + JSON.stringify(req.body));
     var body=req.body;
     //execute sql
-    connection.query("DELETE FROM comment WHERE commentId='" + body.commentId + "'",
+    connection.query("DELETE FROM comment WHERE commentId= '" + body.commentId+"'",
         function (error, result, fields) {
             dbResultHandle.deleteResultHandling(req, res, error, result, "string");
         })
