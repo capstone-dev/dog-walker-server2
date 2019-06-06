@@ -62,10 +62,18 @@ router.post('/', function (req, res) {
 })
 
 router.put('/', function (req, res) {
+    var sql = "";
+    //쿼리스트링 존재안할 시 전체데이터 가져옴
     logger.info("/dogwalkerRealTimeService PUT : " + JSON.stringify(req.body));
     var body = req.body;
+    var sqlColumnValueArray = [];
+    if (Object.keys(req.query).length == 0)
+        sqlColumnValueArray = [body, req.body.DogwalkerID];
+    else {
+        sqlColumnValueArray = [body, req.query.DogwalkerID];
+    }
     //execute sql
-    connection.query("UPDATE dogwalkerRealTimeService SET ? WHERE DogwalkerID='" + body.DogwalkerID + "'", body,
+    connection.query("UPDATE dogwalkerRealTimeService SET ? WHERE DogwalkerID=?", sqlColumnValueArray,
         function (error, result, fields) {
             dbResultHandle.postResultHandling(req, res, error, result, "update", "string");
         })
@@ -74,7 +82,7 @@ router.put('/', function (req, res) {
 router.delete('/', function (req, res) {
     logger.info("/dogwalkerRealTimeService DELETE queryString: " + JSON.stringify(req.query));
     var body = req.body;
-    var sqlColumnValueArray=[req.query.DogwalkerID];
+    var sqlColumnValueArray = [req.query.DogwalkerID];
     //execute sql
     connection.query("DELETE FROM dogwalkerRealTimeService WHERE DogwalkerID=?", sqlColumnValueArray,
         function (error, result, fields) {
