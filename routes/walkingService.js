@@ -6,7 +6,8 @@ var connection=require('../configurations/dbConnection');
 
 //LOGGER SETTING
 const logger=require('../configurations/logConfiguration');
-
+//dbResultHandling SETTING
+const dbResultHandle = require('../configurations/dbResultHandling');
 
 router.get('/',function(req, res, next) {
     logger.info("/walkingService GET");
@@ -66,6 +67,15 @@ router.post('/', function(req, res){
         })
 })
 
-
+router.delete('/', function (req, res) {
+    logger.info("/walkingService DELETE queryString: " + JSON.stringify(req.query));
+    var body = req.body;
+    var sqlColumnValueArray = [req.query.id];
+    //execute sql
+    connection.query("DELETE FROM walking_service WHERE id=?", sqlColumnValueArray,
+        function (error, result, fields) {
+            dbResultHandle.deleteResultHandling(req, res, error, result, "string");
+        })
+})
 
 module.exports = router;
