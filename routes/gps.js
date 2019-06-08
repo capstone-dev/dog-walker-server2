@@ -97,8 +97,21 @@ router.post('/dogwalkerPosition', function (req, res) {
         })
 })
 
+//gps 정보 수정
+//요청 보낼 때 필드: id(필수),
+router.put('/', function (req, res) {
+    var body = req.body;
+    logger.info("/gps PUT : " + JSON.stringify(body));
+    var sqlColumnValueArray = [body, body.id];
+    //execute sql
+    connection.query("UPDATE gps SET ? WHERE id=?", sqlColumnValueArray,
+        function (error, result, fields) {
+            dbResultHandle.putResultHandling(req, res, error, result, "json");
+        })
+})
+
 //marker 정보 및 이미지 수정
-//요청 보낼 때 필드: fileUpload, markerId, photoLatitude, photoLongitude, gpsId
+//요청 보낼 때 필드: fileUpload(필수), markerId(필수), photoLatitude, photoLongitude, gpsId
 router.put('/marker', fileUpload.single('fileUpload'), function (req, res) {
     logger.info("/gps/marker POST : " + JSON.stringify(req.body));
     logger.info("/gps/marker POST file: " + JSON.stringify(req.file));
@@ -107,7 +120,7 @@ router.put('/marker', fileUpload.single('fileUpload'), function (req, res) {
     //execute sql
     connection.query("UPDATE marker SET ? WHERE markerId=" + body.markerId, body,
         function (error, result, fields) {
-            dbResultHandle.postResultHandling(req, res, error, result, "update", "json");
+            dbResultHandle.putResultHandling(req, res, error, result, "json");
         })
 })
 
