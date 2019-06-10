@@ -14,14 +14,17 @@ const dbResultHandle = require('../configurations/dbResultHandling');
 router.get('/',function(req, res, next) {
     logger.info("/dogwalkerInfo GET");
     var sql='';
+    var sqlColumnValueArray;
     //쿼리스트링 존재안할 시 전체데이터 가져옴
     if(Object.keys(req.query).length==0)
         sql='select * from user';
     else{//UserID와 UserPassword에 맞는 user 가져옴
         logger.info("/dogwalkerInfo GET queryString: " + JSON.stringify(req.query));
-        sql='select * from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
+        // sql='select * from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
+        sql='select * from user where ?';
+        sqlColumnValueArray = [req.query];
     }
-    var query = connection.query(sql,
+    var query = connection.query(sql,sqlColumnValueArray,
         function(err,rows){
             if(err){
                 res.send('err : ' + err);
@@ -60,7 +63,6 @@ router.post('/'
         function (error, result, fields) {
             dbResultHandle.postResultHandling(req, res, error, result, "update","string");
         })
-
 })
 
 
