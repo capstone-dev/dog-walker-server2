@@ -13,13 +13,13 @@ const dbResultHandle = require('../configurations/dbResultHandling');
 
 router.get('/',function(req, res, next) {
     logger.info("/dogwalkerInfo GET");
-    var sql="";
+    var sql='';
     //쿼리스트링 존재안할 시 전체데이터 가져옴
     if(Object.keys(req.query).length==0)
-        sql='select UserBigcity,Dogwalkerphoto,UserSmallcity,UserverySmallcity,UserTime from user'
+        sql='select * from user';
     else{//UserID와 UserPassword에 맞는 user 가져옴
         logger.info("/dogwalkerInfo GET queryString: " + JSON.stringify(req.query));
-        sql='select UserBigcity,Dogwalkerphoto,UserSmallcity,UserverySmallcity,UserTime from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
+        sql='select * from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
     }
     var query = connection.query(sql,
         function(err,rows){
