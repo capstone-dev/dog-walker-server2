@@ -12,6 +12,7 @@ const fileUpload=require('../configurations/fileUploadConfiguration');
 const dbResultHandle = require('../configurations/dbResultHandling');
 
 router.get('/',function(req, res, next) {
+
     logger.info("/dogwalkerInfo GET");
     var sql='';
     var sqlColumnValueArray;
@@ -21,8 +22,8 @@ router.get('/',function(req, res, next) {
     else{//UserID와 UserPassword에 맞는 user 가져옴
         logger.info("/dogwalkerInfo GET queryString: " + JSON.stringify(req.query));
         // sql='select * from user where UserID="' +req.query.UserID+'" AND UserPassword="'+req.query.UserPassword+'"';
-        sql='select * from user where UserYear=? AND UserMonth=? AND UserDay=?';
-        sqlColumnValueArray = [req.query.UserYear,req.query.UserMonth,req.query.UserDay];
+        sql='select * from user where UserSmallcity=? AND UserverySmallcity=?';
+        sqlColumnValueArray = [req.query.UserSmallcity,req.query.UserverySmallcity];
     }
     var query = connection.query(sql,sqlColumnValueArray,
         function(err,rows){
