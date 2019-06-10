@@ -45,15 +45,16 @@ router.get('/image', function (req, res, next) {
 })
 
 //user 정보 변경
-//요청 보낼 때 필드: fileUpload, UserID, userBigcity, Dogwalkerphoto, UserSmallcity
-//UserverySmallcity, UserTime (배열)
+//요청 보낼 때 필드: fileUpload, UserID, userBigcity, UserSmallcity, UserTime, UserInfo
+// UserMonth, Userdate, UserDay
 router.post('/', fileUpload.single('fileUpload'),function(req, res){
-    logger.info("/dogwalkerInfo POST : "+JSON.stringify(req.body));
-    logger.info("/dogwalkerInfo POST file: " + JSON.stringify(req.file));
     var body = req.body;
+    logger.info("/dogwalkerInfo POST : "+JSON.stringify(body));
+    logger.info("/dogwalkerInfo POST file: " + JSON.stringify(req.file));
+    var sqlColumnValueArray = [body, body.UserID];
     body["Dogwalkerphoto"] = req.file.path;
     //execute sql
-    connection.query("UPDATE user SET ? WHERE UserID='"+body.UserID+"'", body,
+    connection.query("UPDATE user SET ? WHERE UserID=?", sqlColumnValueArray,
         function (error, result, fields) {
             dbResultHandle.postResultHandling(req, res, error, result, "update","string");
         })
