@@ -67,6 +67,19 @@ router.post('/', function(req, res){
         })
 })
 
+//gps 정보 수정
+//요청 보낼 때 필드: id(필수), gpsId
+router.put('/', function (req, res) {
+    var body = req.body;
+    logger.info("/walkingService PUT : " + JSON.stringify(body));
+    var sqlColumnValueArray = [body, body.id];
+    //execute sql
+    connection.query("UPDATE walking_service SET ? WHERE id=?", sqlColumnValueArray,
+        function (error, result, fields) {
+            dbResultHandle.putResultHandling(req, res, error, result, "json");
+        })
+})
+
 router.delete('/', function (req, res) {
     logger.info("/walkingService DELETE queryString: " + JSON.stringify(req.query));
     var body = req.body;
