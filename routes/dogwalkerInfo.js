@@ -67,4 +67,15 @@ router.post('/'
 })
 
 
+//요청 보낼 때 필드: UserID, UserName,UserEmail, UserPhoneNumber, UserGender, UserBigcity -> signUp에서 가져온 것. UserCertify도 가져와야됨
+router.put('/', function (req, res) {
+    logger.info("/signUp PUT : " + JSON.stringify(req.body));
+    var body = req.body;
+    //execute sql
+    connection.query("UPDATE user SET ? WHERE UserID='" + body.UserID + "'", body,
+        function (error, result, fields) {
+            dbResultHandle.postResultHandling(req, res, error, result, "update","string");
+        })
+})
+
 module.exports = router;
